@@ -69,7 +69,26 @@ public class MainController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @GetMapping("/api")
+    public String getById(@RequestParam long id) {
+        Cat cat = catRepo.findById(id).orElseThrow();
+        return cat.toString();
+        }
+
+    @DeleteMapping("/api")
+    public void deleteCat(@RequestParam long id) {
+        catRepo.deleteById(id);
+    }
+
+    @PutMapping("/api")
+    public String changeCat(@RequestBody Cat cat) {
+
+        if (!catRepo.existsById(cat.getId())) {
+            return "Such row does not exist";
+        }
+        return catRepo.save(cat).toString();
     }
 
 
