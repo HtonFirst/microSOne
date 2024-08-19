@@ -1,5 +1,6 @@
 package com.alkozlov.microSOne.controller;
 
+import com.alkozlov.microSOne.DTO.CatDTO;
 import com.alkozlov.microSOne.entity.Cat;
 import com.alkozlov.microSOne.repository.CatRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -55,8 +56,14 @@ public class MainController {
 //    }
 
     @PostMapping("api/add")
-    public void addCat(@RequestBody Cat cat) {
-      log.info("new row:  " +  catRepo.save(cat));
+    public void addCat(@RequestBody CatDTO catDTO) {
+      log.info(
+              "new row:  " +  catRepo.save(Cat.builder()
+                      .name(catDTO.getName())
+                      .age(catDTO.getAge())
+                      .weight(catDTO.getWeight())
+                      .build())
+              );
     }
 
 
