@@ -5,6 +5,8 @@ import com.alkozlov.microSOne.entity.Cat;
 import com.alkozlov.microSOne.repository.CatRepo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Tag(name = "main_HTTP_methods")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -54,7 +56,10 @@ public class MainController {
 //        }
 //        return jsonData;
 //    }
-
+    @Operation(
+            summary = "add new cat to DB",
+            description = "Получает DTO кота и добавляет сущность в базу"
+    )
     @PostMapping("api/add")
     public void addCat(@RequestBody CatDTO catDTO) {
       log.info(
